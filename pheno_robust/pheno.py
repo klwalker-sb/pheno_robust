@@ -333,10 +333,8 @@ def make_pheno_vars(img_dir, out_dir, start_yr, start_mo, spec_index, pheno_vars
         print('made new directory: {}'.format(out_dir))
 
     ## get stack from images in time-series directory that match year and month
-    ts_stack = []
     ts_stack_wet = []
     ts_stack_dry = []
-    ds_stack = []
     ds_stack_wet = []
     ds_stack_dry = []
     ts_stack_wet_padded = []
@@ -396,6 +394,11 @@ def make_pheno_vars(img_dir, out_dir, start_yr, start_mo, spec_index, pheno_vars
                 elif img_doy < (start_doy - 183) + pad_days[1] :    
                     ts_stack_wet_padded.append(os.path.join(img_dir,img))
                     ds_stack_wet_padded.append(img_date)   
+                    
+    ts_stack = list(set(ts_stack_dry_padded + ts_stack_wet_padded))
+    ts_stack.sort()
+    ds_stack = list(set(ds_stack_dry_padded + ds_stack_wet_padded))
+    ds_stack.sort()
     ras_list = []
     band_names = []
                 
